@@ -4,7 +4,7 @@
     Date Created: 2024-02-07
     Date Updated: 2024-03-06
     Version: 1.05
-    Description: MIS 7375 Homework 1 learning HTML and creating a form.
+    Description: MIS 7375 Homework 3.
  */
 body {
   background-color: rgb(72, 108, 201);
@@ -69,6 +69,11 @@ input[type="button"], input[type="submit"], input[type="reset"] {
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover {
   background-color: #0056b3; /* Change this to your desired hover background color */
 }
+input[type="submit"]:disabled{
+  background-color: #ccc; /* Change this to your desired disabled background color */
+  cursor: not-allowed;
+}
+
 table.output, tr.output, td.output {
 width: 70%;
 opacity: 0.9;
@@ -155,15 +160,6 @@ color:black;
   cursor: pointer;
   border-radius: 5px;
   margin: 5px;
-}
-
-.password_message5 {
-  color: red;
-  display: none;
-}
-.password_message1 {
-  color: red;
-  display: none;
 }
 .styled-button:hover {
   background-color: #0056b3; /* Darker green on hover */

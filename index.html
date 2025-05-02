@@ -5,7 +5,7 @@
     Date Created: 2024-02-07
     Date Updated: 2024-04-05
     Version: 1.05
-    Description: MIS 7375 Homework 1 learning HTML and creating a form.
+    Description: MIS 7375 Homework 3.
 -->
 <html>
     <head>
@@ -308,6 +308,7 @@
             <td align="left">    
                 <label for="ssn">SSN:</label>
                 <input type="password" id="ssn" name="ssn" maxlength="9" pattern="^\d{9}$" placeholder="XXX-XX-XXXX">
+                <span class="error" id="ssn-error">Invalid SSN</span>
             </td>
         </td> 
     </tr>
@@ -365,10 +366,8 @@
             </td>
         </td>
     </tr>
-    <br>
     <!-- Checkboxes for conditions, activities, and family history -->
     <table class="form">
-        <td align="left">
             <tr>
                 <th>Do you have these conditon?</th>
                 <th>Do you engage in any of the following activities</th>
@@ -475,7 +474,6 @@
                 </th>
             </tr>
             <span id="condition_box">
-        </td>
 
         <tr class="form">
             <td align="center">

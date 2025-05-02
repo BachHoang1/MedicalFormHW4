@@ -3,24 +3,9 @@
  File: homework3.js
   Date Created: 2024-03-05
   Date Updated: 2024-03-05
-  Version: 1.02
+  Version: 1.03
   Description: MIS 7375 Homework 3 .
- 
 */
-function createErrorTracker() {
-  let errorOccurred = false;
-
-  return {
-      setError: () => {
-          errorOccurred = true;
-      },
-      isError: () => {
-          return errorOccurred;
-      }
-  };
-}
-
-const errorTracker = createErrorTracker();
 
 /*
 dob function
@@ -40,7 +25,6 @@ This function checks the date of birth field to make sure it is a valid date.
         const dobValue = new Date(dobInput.value);
         if (dobValue > new Date(today) || dobValue < minDate) {
             dateError.style.display = 'inline';
-            errorTracker.setError();
         } else {
             dateError.style.display = 'none';
         }
@@ -55,7 +39,6 @@ This function checks the date of birth field to make sure it is a valid date.
     firstNameInput.addEventListener('change', () => {
       if (!namePattern.test(firstNameInput.value)) {
         nameError.style.display = 'inline';
-        errorTracker.setError();
       } else {
         nameError.style.display = 'none';
       }
@@ -68,7 +51,6 @@ This function checks the date of birth field to make sure it is a valid date.
     middleNameInput.addEventListener('change', () => {
       if (!middlenamePattern.test(middleNameInput.value)) {
         middleNameError.style.display = 'inline';
-        errorTracker.setError();
       } else {
         middleNameError.style.display = 'none';
       }
@@ -80,7 +62,6 @@ This function checks the date of birth field to make sure it is a valid date.
     lastNameInput.addEventListener('change', () => {
       if (!namePattern.test(lastNameInput.value)) {
         lastNameError.style.display = 'inline';
-        errorTracker.setError();
       } else {
         lastNameError.style.display = 'none';
       }
@@ -95,7 +76,6 @@ This function checks the date of birth field to make sure it is a valid date.
   addressInput.addEventListener('change', () => {
     if (!addressPattern.test(addressInput.value)) {
       addressError.style.display = 'inline';
-      errorTracker.setError();
     } else {
       addressError.style.display = 'none';
     }
@@ -109,7 +89,6 @@ This function checks the date of birth field to make sure it is a valid date.
   address2Input.addEventListener('change', () => {
     if (!address2Pattern.test(address2Input.value)) {
       address2Error.style.display = 'inline';
-      errorTracker.setError();
     } else {
       address2Error.style.display = 'none';
     }
@@ -123,7 +102,6 @@ This function checks the date of birth field to make sure it is a valid date.
   emailInput.addEventListener('change', () => {
     if (!emailPattern.test(emailInput.value)) {
       emailError.style.display = 'inline';
-      errorTracker.setError();
     } else {
       emailError.style.display = 'none';
     }
@@ -137,7 +115,6 @@ This function checks the date of birth field to make sure it is a valid date.
   zipInput.addEventListener('change', () => {
     if (!zipPattern.test(zipInput.value)) {
       zipError.style.display = 'inline';
-      errorTracker.setError();
     } else {
       zipError.style.display = 'none';
     }
@@ -152,12 +129,33 @@ This function checks the date of birth field to make sure it is a valid date.
   phoneInput.addEventListener('change', () => {
       if (!phonePattern.test(phoneInput.value)) {
         phoneError.style.display = 'inline';
-        errorTracker.setError();
       } else {
         phoneError.style.display = 'none';
       }
   });
-  
+  //check ssn input if it is valid with condition that 9 digits only and format the ssn input to 000-00-0000 and allow dashes
+  //and check if the ssn is valid with the pattern of 3 digits, 2 digits and 4 digits.
+  const ssnPattern = /^\d{3}-\d{2}-\d{4}$/;
+  const ssnInput = document.getElementById('ssn');
+  const ssnError = document.getElementById('ssn-error');
+
+  const ssnMask = (value) => {
+    return value.replace(/(\d{3})(\d{2})(\d{4})/, '$1-$2-$3');
+  };
+  ssnInput.addEventListener('input', () => {
+    const value = ssnInput.value.replace(/\D/g, ''); // Remove all non-digit characters
+    if (value.length > 0) {
+      ssnInput.value = ssnMask(value);
+    } else {
+      ssnInput.value = '';
+    }
+    if (!ssnPattern.test(ssnInput.value)) {
+      ssnError.style.display = 'inline';
+    } else {
+      ssnError.style.display = 'none';
+    }
+  });
+
   //check userid input if it is valid with condition that 5 to 30 No special characters allowed. just letters, numbers (as long as the first character is NOT a number), and an underscore or dash and no spaces.
   const useridPattern = /^[a-zA-Z][a-zA-Z0-9_-]{4,29}$/;
   const useridInput = document.getElementById('userid');
@@ -166,7 +164,6 @@ This function checks the date of birth field to make sure it is a valid date.
   useridInput.addEventListener('change', () => {
     if (!useridPattern.test(useridInput.value)) {
       useridError.style.display = 'inline';
-      errorTracker.setError();
     } else {
       useridError.style.display = 'none';
     }
@@ -179,17 +176,12 @@ This function checks the date of birth field to make sure it is a valid date.
   cityInput.addEventListener('change', () => {
     if (!cityPattern.test(cityInput.value)) {
       cityError.style.display = 'inline';
-      errorTracker.setError();
     } else {
       cityError.style.display = 'none';
     }
   });
 
 });
-
-/*
-ssn masking fuction
-*/
 
 /*
 Phone edditing function
@@ -225,7 +217,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   selfRateSlider.addEventListener('input', () => {
     const scaleValue = selfRateSlider.value;
     selfRateOutput.innerHTML = scaleValue;
-    selfRateSlider.style.color = getColorBasedOnScale(scaleValue);;
     selfRateOutput.style.color = getColorBasedOnScale(scaleValue);
     selfRateValue.style.color = getColorBasedOnScale(scaleValue);
   });
@@ -292,6 +283,159 @@ function getdata1() {
    }
 }
 
+function checkfirstname()
+    {
+      const namePattern = /^[A-Za-z'-]{1,30}$/;
+        x = document.getElementById("firstname").value;
+        if( x.length<2) { 
+              error_flag = 1;
+        }
+        else {
+            if (namePattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+            }
+            else  {
+              error_flag = 1;
+              }
+        }
+    }
+function checkmiddle()
+    {
+      const middlenamePattern = /^[A-Za-z]{0,1}$/;
+        x = document.getElementById("middleinit").value;
+        if( x.length>0) { 
+              if (middlenamePattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+            }
+            else  {
+              error_flag = 1;
+              }
+        }
+    }
+function checklastname()
+    {
+        const namePattern = /^[A-Za-z'-]{1,30}$/;
+        x = document.getElementById("lastname").value;
+        if( x.length<2) { 
+              error_flag = 1;  
+        }
+        else {
+            if (namePattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+            }
+            else  {
+              error_flag = 1;
+              }
+        }
+    }
+
+    function checkemail()
+    {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        x = document.getElementById("email").value;
+        if (emailPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+          error_flag = 1;
+        }
+    }
+    function checkphone()
+    {
+      const phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+        x = document.getElementById("phone").value;
+        if (phonePattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+              error_flag = 1;
+        }
+    }
+
+    function checkaddress()
+    {
+      const addressPattern = /^[A-Za-z0-9\- ]{2,30}$/;
+        x = document.getElementById("addr1").value;
+        if (addressPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+              error_flag = 1;
+        }
+    }
+
+    function checkuserid()
+    {
+      const useridPattern = /^[a-zA-Z][a-zA-Z0-9_-]{4,29}$/;
+        x = document.getElementById("userid").value;
+        if (useridPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+              error_flag = 1;
+        }
+    }
+
+    function checkcity()
+    {
+      const cityPattern = /^[A-Za-z0-9\- ]{2,30}$/;
+        x = document.getElementById("city").value;
+        if (cityPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+            error_flag = 1;
+        }
+    }
+
+    function checkzip()
+    {
+      const zipPattern = /^[0-9]{5}(-[0-9]{4})?$/;
+        x = document.getElementById("zip").value;
+        if( x.length<5) { 
+          error_flag = 1;  
+        }
+        else {
+            if (zipPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+            }
+            else  {
+              error_flag = 1;
+            }
+        }
+    }
+
+    // Check ssn
+    function checkssn() {
+        const ssnPattern = /^\d{3}-\d{2}-\d{4}$/; 
+        x = document.getElementById("ssn").value;
+        if (ssnPattern.test(x)) {
+              //document.getElementById("name_message").innerHTML = "";  
+        }
+        else  {
+          alert("Invalid characters in ssn");
+          error_flag = 1;
+        }
+    }
+
+    //check date of birth
+    function checkdob() {
+        x = document.getElementById("dob").value;
+        if (x.length<10) {
+          alert("Invalid date of birth.");
+          error_flag = 1;
+        }
+        else {
+            var dob = new Date(x);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+        }
+    }
+
 // Deal with password    
 function passwordentry() 
     {
@@ -301,7 +445,7 @@ function passwordentry()
     // Validate lowercase letters
     if(passwordinput.search(/[a-z]/) < 0 ) {
       passwordoutput = "Enter At least 1 lower case letter";
-      errorTracker.setError();
+      error_flag = 1;
     } else {
       passwordoutput = "";
     }
@@ -309,31 +453,29 @@ function passwordentry()
     // Validate capital letters
     if(passwordinput.search(/[A-Z]/)< 0)  {  
       passwordoutput = "Enter at least 1 upper case letter";
-      errorTracker.setError();
+      error_flag = 1;
     } else {
       passwordoutput = "";
     }
     document.getElementById("password_message2").innerHTML = passwordoutput;
   // Validate numbers
    if(passwordinput.search(/[0-9]/)<0 ) {   
-    passwordoutput = "Entera at least 1 number";
-    errorTracker.setError();
+    error_flag = 1;
     } else {
     passwordoutput = "";
     }
     document.getElementById("password_message3").innerHTML = passwordoutput;
     // Validate special chars
    if(passwordinput.search(/[!\@#\$%&*\-_\\.+\(\)]/)<0 ) {   
-    passwordoutput = "Enter at least 1 special character";
-    errorTracker.setError();
+    error_flag = 1;
     } else {
     passwordoutput = "";
     }
-    document.getElementById("password_message4"). = passwordoutput;
+    document.getElementById("password_message4").innerHTML = passwordoutput;
   // Validate length
   if(passwordinput.length < 8) {
       passwordoutput = "Enter a Minimum 8 characters";
-      errorTracker.setError();
+      error_flag = 1;
   } else {
       passwordoutput = "";
   }
@@ -350,9 +492,21 @@ function checkpassword2() {
     } else  
       {
          document.getElementById("password2_text").innerHTML = "Passwords DO NOT match!";
-         errorTracker.setError();
+         error_flag = 1;
       }
     }
+
+    function checkstate() {
+      z=document.getElementById("state").value;
+      if(z=="") { 
+        alert("Please choose a state!");
+        error_flag = 1;
+      }
+      else {
+        //document.getElementById("state_message").innerHTML = ""; 
+      }
+}
+
 const textInput = document.getElementById('userid');
 const submitButton = document.getElementById('check2');
 
@@ -360,11 +514,30 @@ submitButton.addEventListener('click', function() {
   const inputText = textInput.value;
   const lowercaseText = inputText.toLowerCase();
   textInput.value = lowercaseText;
+  error_flag = "0";
 
+  checkfirstname();
+  checkmiddle();
+  checklastname();
+  checkemail();
+  checkphone();
+  checkaddress();
+  checkcity();
+  checkzip();
+  checkstate();
   passwordentry();
-  if (errorTracker.isError()) {
-    alert("Please fix the indicated errors!");
-  }else {
+  checkpassword2();
+  checkuserid();
+  checkssn();
+  checkdob();
+  
+  console.log("Error flag: "+error_flag);
+
+  if (error_flag == "1")
+  {
+    document.getElementById("submit").disabled = true;  
+  }
+  else {
     alert("Form is good!");
     document.getElementById("submit").disabled = false;
   }
