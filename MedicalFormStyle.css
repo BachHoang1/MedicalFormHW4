@@ -164,6 +164,9 @@ color:black;
 .styled-button:hover {
   background-color: #0056b3; /* Darker green on hover */
 }
+#header-iframe {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+}
 /* References: 
 https://profjake.w3spaces.com/MIS3371/homework3.html
  */

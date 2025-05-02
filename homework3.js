@@ -11,6 +11,80 @@
 dob function
 This function checks the date of birth field to make sure it is a valid date.
 */
+
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + date.toUTCString();
+  document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+}
+
+
+function getCookie(name) {
+  const nameEQ = name + "=";
+  const cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      if (cookie.indexOf(nameEQ) === 0) {
+          return decodeURIComponent(cookie.substring(nameEQ.length, cookie.length));
+      }
+  }
+  return null;
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const firstName = getCookie('firstname');
+  const bodyElement = document.body;
+
+  // Create a container for the greeting and dynamic checkbox
+  const greetingContainer = document.createElement('div');
+  greetingContainer.style.textAlign = 'center';
+  greetingContainer.style.margin = '10px 0';
+  greetingContainer.style.fontSize = '1.5em';
+  greetingContainer.style.fontWeight = 'bold';
+
+  if (firstName) {
+      // If the cookie exists, greet the user
+      greetingContainer.innerHTML = `Welcome back, ${firstName}!`;
+
+      // Add a dynamic checkbox for starting as a new user
+      const newUserCheckbox = document.createElement('input');
+      newUserCheckbox.type = 'checkbox';
+      newUserCheckbox.id = 'new_user_checkbox';
+      newUserCheckbox.style.marginLeft = '10px';
+
+      const newUserLabel = document.createElement('label');
+      newUserLabel.htmlFor = 'new_user_checkbox';
+      newUserLabel.textContent = `Not ${firstName}? Click HERE to start as a NEW USER.`;
+      newUserLabel.style.marginLeft = '5px';
+      newUserLabel.style.fontSize = '0.8em';
+
+      // Append the checkbox and label to the greeting container
+      greetingContainer.appendChild(newUserCheckbox);
+      greetingContainer.appendChild(newUserLabel);
+
+      // Add an event listener to the checkbox
+      newUserCheckbox.addEventListener('change', () => {
+          if (newUserCheckbox.checked) {
+              // Delete the cookie and reload the page as a new user
+              deleteCookie('firstname');
+              location.reload();
+          }
+      });
+  } else {
+      // If the cookie does not exist, greet the new user
+      greetingContainer.textContent = 'Welcome New User!';
+  }
+
+  // Insert the greeting container at the top of the body
+  bodyElement.insertBefore(greetingContainer, bodyElement.firstChild);
+});
+
   document.addEventListener('DOMContentLoaded', (event) => {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('dob').setAttribute('max', today);
@@ -506,6 +580,39 @@ function checkpassword2() {
         //document.getElementById("state_message").innerHTML = ""; 
       }
 }
+
+
+// Save or delete cookies based on "Remember Me" checkbox
+document.addEventListener('DOMContentLoaded', () => {
+  const rememberMeCheckbox = document.getElementById('remember_me');
+  const firstNameInput = document.getElementById('firstname');
+
+  // Check if the "firstname" cookie exists and populate the input field
+  const savedFirstName = getCookie('firstname');
+  if (savedFirstName) {
+      firstNameInput.value = savedFirstName;
+  }
+
+  // Handle form submission
+  const submitButton = document.getElementById('submit');
+  submitButton.addEventListener('click', () => {
+      if (rememberMeCheckbox.checked) {
+          // Save the first name to a cookie
+          setCookie('firstname', firstNameInput.value, 7); // Save for 7 days
+      } else {
+          // Delete the cookie if "Remember Me" is unchecked
+          deleteCookie('firstname');
+      }
+  });
+
+  // Handle "Remember Me" checkbox changes
+  rememberMeCheckbox.addEventListener('change', () => {
+      if (!rememberMeCheckbox.checked) {
+          // Delete the cookie if unchecked
+          deleteCookie('firstname');
+      }
+  });
+});
 
 const textInput = document.getElementById('userid');
 const submitButton = document.getElementById('check2');
