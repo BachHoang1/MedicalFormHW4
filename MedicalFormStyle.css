@@ -1,10 +1,10 @@
-  /* 
+/* 
     Name: Bach Kim Nguyen Hoang  
     File: MedicalFormStyle.css
     Date Created: 2024-02-07
-    Date Updated: 2024-03-06
-    Version: 1.05
-    Description: MIS 7375 Homework 3.
+    Date Updated: 2024-05-04
+    Version: 1.06
+    Description: MIS 7375 Homework 4.
  */
 body {
   background-color: rgb(72, 108, 201);
@@ -164,9 +164,39 @@ color:black;
 .styled-button:hover {
   background-color: #0056b3; /* Darker green on hover */
 }
-#header-iframe {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+
+/* Make the header sticky */
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensure it stays above other elements */
+    background-color: rgb(72, 108, 201) ; /* Match the background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+    padding: 10px 0; /* Optional: Adjust padding */
 }
+
+.social-media {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  display: inline-block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-10px); /* Slide up on hover */
+  opacity: 0.8; /* Slightly fade on hover */
+}
+
+.social-icon img {
+  width: 1px; /* Set the desired width */
+  height: 1px; /* Set the desired height */
+}
+
 /* References: 
 https://profjake.w3spaces.com/MIS3371/homework3.html
  */

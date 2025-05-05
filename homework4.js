@@ -1,10 +1,10 @@
 /* 
  Name: Bach Hoang
- File: homework3.js
+ File: homework4.js
   Date Created: 2024-03-05
-  Date Updated: 2024-03-05
-  Version: 1.03
-  Description: MIS 7375 Homework 3 .
+  Date Updated: 2024-05-04
+  Version: 1.09
+  Description: MIS 7375 Homework 4.
 */
 
 /*
@@ -12,13 +12,14 @@ dob function
 This function checks the date of birth field to make sure it is a valid date.
 */
 
+// Function to set, get, and delete cookies
+// The cookie is set to expire after 24 hours.
 function setCookie(name, value, days) {
   const date = new Date();
-  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // 24 hours in milliseconds
   const expires = "expires=" + date.toUTCString();
   document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
 }
-
 
 function getCookie(name) {
   const nameEQ = name + "=";
@@ -47,34 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
   greetingContainer.style.margin = '10px 0';
   greetingContainer.style.fontSize = '1.5em';
   greetingContainer.style.fontWeight = 'bold';
+  greetingContainer.style.color = '#2fcaed';
+  greetingContainer.style.fontFamily = 'Myriad Pro, sans-serif';
 
   if (firstName) {
       // If the cookie exists, greet the user
       greetingContainer.innerHTML = `Welcome back, ${firstName}!`;
 
       // Add a dynamic checkbox for starting as a new user
-      const newUserCheckbox = document.createElement('input');
-      newUserCheckbox.type = 'checkbox';
-      newUserCheckbox.id = 'new_user_checkbox';
-      newUserCheckbox.style.marginLeft = '10px';
+      const newUserButton = document.createElement('button'); // Create a button instead of a checkbox
+      newUserButton.id = 'new_user_button';
+      newUserButton.textContent = `Not ${firstName}? Start NEW USER.`;
+      newUserButton.style.marginLeft = '10px';
+      newUserButton.style.fontSize = '0.8em';
+      newUserButton.style.fontFamily = 'Myriad Pro, sans-serif';
 
-      const newUserLabel = document.createElement('label');
-      newUserLabel.htmlFor = 'new_user_checkbox';
-      newUserLabel.textContent = `Not ${firstName}? Click HERE to start as a NEW USER.`;
-      newUserLabel.style.marginLeft = '5px';
-      newUserLabel.style.fontSize = '0.8em';
+      // Append the button to the greeting container
+      greetingContainer.appendChild(newUserButton);
 
-      // Append the checkbox and label to the greeting container
-      greetingContainer.appendChild(newUserCheckbox);
-      greetingContainer.appendChild(newUserLabel);
-
-      // Add an event listener to the checkbox
-      newUserCheckbox.addEventListener('change', () => {
-          if (newUserCheckbox.checked) {
-              // Delete the cookie and reload the page as a new user
-              deleteCookie('firstname');
-              location.reload();
-          }
+      // Add an event listener to the button
+      newUserButton.addEventListener('click', () => {
+      // Delete the cookie, reset the form, and reload the page
+      deleteCookie('firstname');
+      resetForm(); // Reset the form
+      location.reload();
       });
   } else {
       // If the cookie does not exist, greet the new user
@@ -581,6 +578,27 @@ function checkpassword2() {
       }
 }
 
+
+function resetForm() {
+  const form = document.getElementById('signup'); // Replace 'signup' with your form's ID
+  if (form) {
+      form.reset(); // Reset all form fields to their default values
+  }
+
+  // Clear any error messages
+  const errorMessages = document.querySelectorAll('.error-message'); // Replace '.error-message' with your error message class
+  errorMessages.forEach((error) => {
+      error.style.display = 'none';
+  });
+
+  // Optionally, clear any dynamically added content
+  const dynamicContent = document.getElementById('outputformdata'); // Replace 'outputformdata' with your dynamic content ID
+  if (dynamicContent) {
+      dynamicContent.innerHTML = '';
+  }
+
+  alert('Form has been reset!');
+}
 
 // Save or delete cookies based on "Remember Me" checkbox
 document.addEventListener('DOMContentLoaded', () => {

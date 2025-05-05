@@ -1,12 +1,12 @@
-<!doctype html>
 <!-- 
     Name: Bach Kim Nguyen Hoang  
     File: index.html
     Date Created: 2024-02-07
-    Date Updated: 2024-04-05
-    Version: 1.05
-    Description: MIS 7375 Homework 3.
+    Date Updated: 2024-05-04
+    Version: 1.12
+    Description: MIS 7375 Homework 4.
 -->
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -15,16 +15,19 @@
         <link rel="stylesheet" href="MedicalFormStyle.css">
     </head>
     <body>
-        <iframe 
-    src="header.html" 
-    id="header-iframe" 
-    style="width: 100%; height: 100px; border: none; position: fixed; top: 0; left: 0; z-index: 1000;">
-</iframe>
-
-<!-- Add margin to prevent content overlap -->
-<div style="margin-top: 100px;">
-    <!-- Rest of your page content -->
-</div>
+        <div id="header"> 
+            <table width="100%">
+                    <td>
+                        <img 
+                            id="logo" 
+                            src="Miracle Care logo.png" 
+                            alt="Miracle Care Form"
+                        >
+                    </td>
+                    <td valign="center" class="miracle-care-font">Miracle Care Medical</td>
+                    <td valign="bottom" class="today-date" align="right">Today's date: <span id="today"></span></td>
+            </table>
+        </div>
         <div id="body">
             <!--thankyou.html-->
     <table class="form">
@@ -636,7 +639,7 @@
 
 <!-- Load external JavaScript -->
  <!--placeholder-->
-<script src="homework3.js"></script>
+<script src="homework4.js"></script>
 
 <script>
     const d = new Date();
@@ -645,47 +648,13 @@
 </script>
                 
 <!-- Footer section -->
-<div id="footer" style="text-align: center; margin-top: 20px;">
-    <p>© 2025 Miracle Care Medical</p>
-    <ul role="list" class="col-md-12"><li>
-        <a href="https://www.stlukeshealth.org/about-st-lukes-health/corporate-responsibility/terms-of-service">Legal Notices</a>
-        <span>|</span>
-    </li>
-    <li>
-        <a href="https://www.stlukeshealth.org/about-st-lukes-health/corporate-responsibility/website-privacy-notice">Internet Privacy Policy</a>
-        <span>|</span>
-    </li>
-    <li>
-        <a href="https://www.stlukeshealth.org/about-st-lukes-health/corporate-responsibility/online-accessibility-notice">Online Accessibility Notice</a>
-        <span>|</span>
-    </li>
-    <li>
-        <a href="https://www.stlukeshealth.org/content/dam/shared/legal/legal-documents/OHCA-list-CommonSpirit-Health.pdf">Organized Health Care Arrangement (OHCA)</a>
-        <span>|</span>
-    </li>
-    <li>
-        <a href="https://www.stlukeshealth.org/about-st-lukes-health/corporate-responsibility/privacy-policies">HIPAA Notice of Privacy Practices</a>
-        <span>|</span>
-    </li>
-</ul>
-    <button onclick="window.location.href='thankyou.html'">Contact Us</button>
-    <div class="social-media">
-        <a href="https://www.instagram.com/ooferjuice/p/BgSlRglAKBn/?hl=en" target="_blank">
-            <img src="https://dp09mr0szd90e.cloudfront.net/stlukeshealth/instagram.svg" alt="Instagram" class="social-icon">
-        </a>
-        <a href="https://www.facebook.com" target="_blank">
-            <img src="https://dp09mr0szd90e.cloudfront.net/stlukeshealth/facebook.svg" alt="Facebook" class="social-icon">
-        </a>
-        <a href="https://x.com/rickroll?lang=en" target="_blank">
-            <img src="https://dp09mr0szd90e.cloudfront.net/stlukeshealth/twitter.svg" alt="Twitter" class="social-icon">
-        </a>
-        <a href="https://www.youtube.com/watch?v=GBIIQ0kP15E" target="_blank">
-            <img src="https://dp09mr0szd90e.cloudfront.net/stlukeshealth/youtube.svg" alt="YouTube" class="social-icon">
-        </a>
-        <a href="https://www.linkedin.com" target="_blank">
-            <img src="https://dp09mr0szd90e.cloudfront.net/stlukeshealth/linkedin.svg" alt="Linkedin" class="social-icon">
-        </a>
-    </div>
+<!-- filepath: c:\Users\Bakh\Documents\GitHub\MedicalFormHW4\index.html -->
+<div id="footer">
+    <iframe 
+        src="footer.html" 
+        style="width: 100%; height: 200px; border: none;"
+        title="Footer Section">
+    </iframe>
 </div>
 
 </body>
